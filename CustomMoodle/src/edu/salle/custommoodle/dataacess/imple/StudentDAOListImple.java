@@ -3,41 +3,42 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.com.salle.custommoodle.dataacess.imple;
+package edu.salle.custommoodle.dataacess.imple;
 
-import edu.com.salle.custommoodle.dataacess.StudentDAO;
-import edu.com.salle.custommoodle.model.Student;
+import edu.salle.custommoodle.dataacess.StudentDAO;
+import edu.salle.custommoodle.model.Student;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @author diego
+ * @author JuandeDios
  */
 public class StudentDAOListImple implements StudentDAO {
-    private static List<Student> studentList = new ArrayList<>();
-
+ private static List<Student> studentList=new ArrayList<>();
     @Override
     public Student save(Student student) {
-            String Id = Integer.toString(studentList.size() +1);
-            student.setId(Id);
-            studentList.add(student);
-            return student;
-        }
+        String id=Integer.toString(studentList.size()+1);
+        student.setId(id);
+        studentList.add(student);
+        return student;
+    }
 
     @Override
     public List<Student> findAll() {
-        return studentList;
+    return studentList;
     }
 
     @Override
     public Student find(String id) {
-     for (Student student : studentList){
-         if(student.getId().equals(id)){
-             return student;
-         }
-     }
-     return null;
+        for(Student student:studentList)
+        {
+        if(student.getId().equals(id))
+        {
+            return student;
+        }
+        }
+        return null;
     }
 
     @Override
@@ -61,5 +62,5 @@ public class StudentDAOListImple implements StudentDAO {
        int pos = studentList.indexOf(student);//obtener la posicion
        studentList.set(pos, student);//y en esa misma posicion se le va a set (hacer el cambio)
     }
-
+    
 }

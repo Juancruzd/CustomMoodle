@@ -3,28 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.com.salle.custommoodle.model;
+package edu.salle.custommoodle.model;
 
 import java.util.Objects;
 
 /**
  *
- * @author diego
- * implements Comparable
+ * @author JuandeDios
  */
 public class Student {
-private String name;
-private String lastName;
-private String id;
+ private String name;
+     private String lastName; 
+     private String id;
 
-
+     public Student()
+     {}
     public Student(String name, String lastName) {
         this.name = name;
         this.lastName = lastName;
     }
-    
-    public Student(){      
-    }
+     
     public String getName() {
         return name;
     }
@@ -48,17 +46,12 @@ private String id;
     public void setId(String id) {
         this.id = id;
     }
+
     @Override
     public String toString() {
-        return String.format("id=%s,\nname=%s,\nlastName=%s", id, name, lastName); //To change body of generated methods, choose Tools | Templates.
+        return String.format("id=%s,\n name=%s,\nLastName=%s\n",id,name,lastName); //To change body of generated methods, choose Tools | Templates.
     }
-//
-//    @Override
-//    public int compareTo(Object t) {
-//   return ((Student)t).id.compareTo(id);    // COMPARE TO PARA ORDENAR CUANDO UNO ES MAYOR QUE EL OTRO ETC
-//    }
-    
-    @Override
+       @Override
          public int hashCode(){ //forzar al programa que me los compare con un objeto especifico
         return id.hashCode();//el metodo trabaja de manera matematica osea hashea los obj y compara
     }

@@ -16,7 +16,10 @@ public interface StudentDAO {
     public Student save(Student student);
     public List<Student> findAll();
     public Student find(String id);
-    public Student findByLastName(String name);
+    public List<Student> findByLastName(String name);
     public boolean delete(Student student);
     public boolean update(Student student);
+    
+    public void load();
+    public void commitChanges();
 }

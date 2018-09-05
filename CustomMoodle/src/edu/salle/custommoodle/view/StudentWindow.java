@@ -24,8 +24,10 @@ public class StudentWindow extends javax.swing.JFrame {
     public StudentWindow() {
         initComponents();
         setLocationRelativeTo(null);
+        
+        studentBLO.load();
         clearTable();
-        refreshTable();
+        refreshTable(studentBLO.findAll());
     }
 
     /**
@@ -50,6 +52,7 @@ public class StudentWindow extends javax.swing.JFrame {
         btnRefresh = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblStudents = new javax.swing.JTable();
+        bexit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,39 +107,49 @@ public class StudentWindow extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblStudents);
 
+        bexit.setText("Salir");
+        bexit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bexitActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(bexit)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(tfLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnRefresh)))
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnupdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bsearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bsave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(20, 20, 20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(tfLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(btnRefresh)))
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnupdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bsearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bsave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -167,7 +180,9 @@ public class StudentWindow extends javax.swing.JFrame {
                         .addComponent(btnRefresh)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(165, 165, 165))
+                .addGap(113, 113, 113)
+                .addComponent(bexit)
+                .addGap(29, 29, 29))
         );
 
         pack();
@@ -188,7 +203,7 @@ public class StudentWindow extends javax.swing.JFrame {
         studentBLO.save(student);
         tfName.setText("");
         tfLastName.setText("");  
-        refreshTable();
+        refreshTable(studentBLO.findAll());
         }
        else
        {
@@ -208,39 +223,32 @@ public class StudentWindow extends javax.swing.JFrame {
         else
         {
         String name=tfName.getText();
-        String lastname=tfLastName.getText();
+        String lastname=tfLastName.getText().trim();
         String id=tfId.getText();
         clearTable();
-        if(!"".equals(lastname) || !"".equals(name))
+        if(!"".equals(id) || !"".equals(name))
         {
         JOptionPane.showMessageDialog(null, "Para Realizar Una Busqueda Solo Es Necesario el Campo\nId");
         tfName.setText("");
         tfLastName.setText("");
         }
-        else if(!"".equals(id))
+        else if(!"".equals(lastname))
         {
-            Student student =studentBLO.find(id);
-        if(student!=null)
+        List<Student> studentList1=studentBLO.findByLastName(lastname);
+//            Student student =studentBLO.find(id);
+        if(studentList1!=null)
         {
             clearTable();
-       DefaultTableModel dtm = (DefaultTableModel) tblStudents.getModel(); //tabala de negocio
-        Object[] emptyRow = {""}; //renglon bacio a las propiedades
-           dtm.addRow(emptyRow);// se agrega renglon vacio y se agrega a la tabla
-            dtm.setValueAt(student.getId(), 0, 0); // la i es la posicion    el tercero es la coluna
-            dtm.setValueAt(student.getName(), 0, 1);
-            dtm.setValueAt(student.getLastName(), 0, 2);
-//        
-//            tfName.setText(student.getName());
-//            tfLastName.setText(student.getLastName());
+            refreshTable(studentList1);
         }
         else
         {
             JOptionPane.showMessageDialog(null, "El Usuario No Existe");
-             refreshTable();
+             refreshTable(studentBLO.findAll());
         }
         }
         else{
-            refreshTable();
+            refreshTable(studentBLO.findAll());
         JOptionPane.showMessageDialog(null, "Para Realizar Una Busqueda Es Necesario el Campo\nId");
        
         }
@@ -256,7 +264,7 @@ public class StudentWindow extends javax.swing.JFrame {
        }
         else
         {
-        refreshTable();
+        refreshTable(studentBLO.findAll());
         }
     }//GEN-LAST:event_btnRefreshActionPerformed
 
@@ -281,12 +289,12 @@ public class StudentWindow extends javax.swing.JFrame {
         tfName.setText("");
         tfLastName.setText(""); 
         tfId.setText(""); 
-        refreshTable();
+        refreshTable(studentBLO.findAll());
         }
             else
         {
             JOptionPane.showMessageDialog(null, "El Usuario No Existe");
-            refreshTable(); 
+            refreshTable(studentBLO.findAll()); 
         }
         
         }
@@ -324,34 +332,40 @@ public class StudentWindow extends javax.swing.JFrame {
         if(var==true)
         { 
         tfId.setText(""); 
-        refreshTable();
+        refreshTable(studentBLO.findAll());
         }
             else
         {
             JOptionPane.showMessageDialog(null, "El Usuario No Existe");
-            refreshTable();
+            refreshTable(studentBLO.findAll());
          }
 //        
 //            tfName.setText(student.getName());
 //            tfLastName.setText(student.getLastName());
         }
         else{
-            refreshTable();
+            refreshTable(studentBLO.findAll());
         JOptionPane.showMessageDialog(null, "Para Realizar Una Busqueda Es Necesario el Campo\nId");
        
         }
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void bexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bexitActionPerformed
+    
+        studentBLO.commitChanges();
+        this.dispose();
+    }//GEN-LAST:event_bexitActionPerformed
 private void clearTable(){
        DefaultTableModel dtm = (DefaultTableModel) tblStudents.getModel();
        while(dtm.getRowCount()>0){
            dtm.removeRow(0);
        }
    }
-private void refreshTable()
+private void refreshTable(List<Student> studentList)
     {
         clearTable();
-        List<Student> studentList = studentBLO.findAll(); // se obtiene lista en el metodo de negocio
+//        List<Student>  = studentBLO.findAll(); // se obtiene lista en el metodo de negocio
         DefaultTableModel dtm = (DefaultTableModel) tblStudents.getModel(); //tabala de negocio
         Object[] emptyRow = {""}; //renglon bacio a las propiedades
         for(int i = 0; i<studentList.size(); i++){ //recorrer la lista de los estudiantes
@@ -366,6 +380,7 @@ private void refreshTable()
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bexit;
     private javax.swing.JButton bsave;
     private javax.swing.JButton bsearch;
     private javax.swing.JButton btnDelete;

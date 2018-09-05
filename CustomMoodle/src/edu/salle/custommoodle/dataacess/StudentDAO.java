@@ -3,26 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.com.salle.custommoodle.dataacess;
+package edu.salle.custommoodle.dataacess;
 
-import edu.com.salle.custommoodle.model.Student;
+import edu.salle.custommoodle.model.Student;
 import java.util.List;
 
 /**
  *
- * @author diego
+ * @author JuandeDios
  */
 public interface StudentDAO {
     public Student save(Student student);
-    
     public List<Student> findAll();
-    
     public Student find(String id);
-    
     public Student findByLastName(String name);
-    
-    public void delete(Student student);
-    
-    public void update(Student student);
-    
+    public boolean delete(Student student);
+    public boolean update(Student student);
 }

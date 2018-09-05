@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.com.salle.custommoodle.dataacess.imple;
+package edu.salle.custommoodle.dataacess.imple;
 
-import edu.com.salle.custommoodle.dataacess.StudentDAO;
-import edu.com.salle.custommoodle.model.Student;
+import edu.salle.custommoodle.dataacess.StudentDAO;
+import edu.salle.custommoodle.model.Student;
 import java.util.List;
 
 /**
  *
- * @author diego
+ * @author JuandeDios
  */
-public class StudentDAOMySQL implements StudentDAO{
+public class StudentDAOMySQL implements StudentDAO {
 
     @Override
     public Student save(Student student) {
@@ -36,12 +36,12 @@ public class StudentDAOMySQL implements StudentDAO{
     }
 
     @Override
-    public void delete(Student student) {
+    public boolean delete(Student student) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Student student) {
+    public boolean update(Student student) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

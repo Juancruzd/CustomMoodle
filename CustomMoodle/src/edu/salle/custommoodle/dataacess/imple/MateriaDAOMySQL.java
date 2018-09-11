@@ -5,43 +5,43 @@
  */
 package edu.salle.custommoodle.dataacess.imple;
 
-import edu.salle.custommoodle.dataacess.StudentDAO;
-import edu.salle.custommoodle.model.Student;
+import edu.salle.custommoodle.dataacess.MateriaDAO;
+import edu.salle.custommoodle.model.Materia;
 import java.util.List;
 
 /**
  *
  * @author JuandeDios
  */
-public class StudentDAOMySQL implements StudentDAO {
+public class MateriaDAOMySQL implements MateriaDAO {
 
     @Override
-    public Student save(Student student) {
+    public Materia save(Materia student) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Student> findAll() {
+    public List<Materia> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Student find(String id) {
+    public Materia find(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Student> findByLastName(String name) {
+    public List<Materia> findByName(String name) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean delete(Student student) {
+    public boolean delete(Materia student) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean update(Student student) {
+    public boolean update(Materia student) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -56,7 +56,17 @@ public class StudentDAOMySQL implements StudentDAO {
     }
 
     @Override
-    public List<Student> findStudentsMat(String lastName) {
+    public String findName(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String findId(String name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String findNameDocente(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

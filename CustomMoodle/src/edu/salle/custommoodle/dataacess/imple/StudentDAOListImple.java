@@ -7,7 +7,9 @@ package edu.salle.custommoodle.dataacess.imple;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import edu.salle.custommoodle.businesslogic.MateriaBLO;
 import edu.salle.custommoodle.dataacess.StudentDAO;
+import edu.salle.custommoodle.model.Materia;
 import edu.salle.custommoodle.model.Student;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -26,8 +28,8 @@ public class StudentDAOListImple implements StudentDAO {
  private static List<Student> studentList=new ArrayList<>();
     @Override
     public Student save(Student student) {
-        String id=Integer.toString(studentList.size()+1);
-        student.setId(id);
+//        String id=Integer.toString(studentList.size()+1);
+//        student.setCurp(id);
         studentList.add(student);
         return student;
     }
@@ -41,7 +43,7 @@ public class StudentDAOListImple implements StudentDAO {
     public Student find(String id) {
         for(Student student:studentList)
         {
-        if(student.getId().equals(id))
+        if(student.getCurp().equals(id))
         {
             return student;
         }
@@ -54,7 +56,8 @@ public class StudentDAOListImple implements StudentDAO {
         List<Student> resStudentList=new ArrayList<>();
     lastName = lastName.toLowerCase().trim();
     for (Student student : studentList){
-        if(student.getLastName().toLowerCase().contains(lastName) || student.getName().toLowerCase().contains(lastName)){
+        if(student.getApellidoM().toLowerCase().contains(lastName) || student.getName().toLowerCase().contains(lastName)||
+                student.getApellidoP().toLowerCase().contains(lastName)||student.getCurp().toLowerCase().contains(lastName) ){
             resStudentList.add(student);
         }
     }
@@ -115,6 +118,20 @@ public class StudentDAOListImple implements StudentDAO {
      catch (Exception ex) {
         ex.printStackTrace();
      }
+    }
+    @Override
+    public List<Student> findStudentsMat(String lastName) {
+        List<Student> resMateriaList=new ArrayList<>();
+    lastName = lastName.toLowerCase().trim();
+    MateriaBLO N=new MateriaBLO();
+    String i=N.findId(lastName);
+    for (Student student : studentList){
+        if(student.getIdMateria().toLowerCase().contains(i))
+        {
+            resMateriaList.add(student);
+        }
+    }
+    return resMateriaList;
     }
     
 }

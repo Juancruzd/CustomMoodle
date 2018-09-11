@@ -22,4 +22,5 @@ public interface StudentDAO {
     
     public void load();
     public void commitChanges();
+    public List<Student> findStudentsMat(String lastName);
 }

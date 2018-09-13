@@ -50,7 +50,5 @@ public class StudentBLO {
     {
         studentDAO.commitChanges();
     };
-    public List<Student> findStudentsMat(String lastName){
-    return studentDAO.findStudentsMat(lastName);
-    };
+    
 }

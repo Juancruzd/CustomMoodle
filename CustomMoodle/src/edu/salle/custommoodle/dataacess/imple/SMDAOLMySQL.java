@@ -5,43 +5,49 @@
  */
 package edu.salle.custommoodle.dataacess.imple;
 
-import edu.salle.custommoodle.dataacess.StudentDAO;
-import edu.salle.custommoodle.model.Student;
+import edu.salle.custommoodle.dataacess.SMDAO;
+import edu.salle.custommoodle.model.SM;
 import java.util.List;
 
 /**
  *
  * @author JuandeDios
  */
-public class StudentDAOMySQL implements StudentDAO {
+public class SMDAOLMySQL implements SMDAO{
 
     @Override
-    public Student save(Student student) {
+    public SM save(SM student) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Student> findAll() {
+    public List<SM> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Student find(String id) {
+    public SM find(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
+    @Override
+    public String findName(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Student> findByLastName(String name) {
+    public String findId(String name) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean delete(Student student) {
+    public boolean delete(SM student) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean update(Student student) {
+    public boolean update(SM student) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -55,5 +61,26 @@ public class StudentDAOMySQL implements StudentDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    
+
+    @Override
+    public List<SM> findStudentsMat(String lastName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<SM> findByCurp(String name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean updateCurpMat(String curpO,String curp) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean Baja(SM student) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

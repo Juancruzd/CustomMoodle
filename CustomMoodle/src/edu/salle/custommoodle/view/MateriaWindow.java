@@ -7,8 +7,10 @@ package edu.salle.custommoodle.view;
 
 import edu.salle.custommoodle.businesslogic.StudentBLO;
 import edu.salle.custommoodle.businesslogic.MateriaBLO;
+import edu.salle.custommoodle.businesslogic.SMBLO;
 
 import edu.salle.custommoodle.model.Materia;
+import edu.salle.custommoodle.model.SM;
 import edu.salle.custommoodle.model.Student;
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public class MateriaWindow extends javax.swing.JFrame {
      * Creates new form MateriaWindow
      */
     
+    private SMBLO SMBLO=new SMBLO();
     private StudentBLO studentBLO=new StudentBLO();
     private MateriaBLO materiaBLO=new MateriaBLO();
     public MateriaWindow() {
@@ -32,6 +35,7 @@ public class MateriaWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         materiaBLO.load();
         studentBLO.load();
+        SMBLO.load();
         clearTable();
         refreshTable(materiaBLO.findAll());
         refreshMaterias();
@@ -66,6 +70,13 @@ public class MateriaWindow extends javax.swing.JFrame {
         tblStudents = new javax.swing.JTable();
         cmbMateria = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
+        btnBaja = new javax.swing.JButton();
+        txtInfoSearch1 = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        lblCurp = new javax.swing.JLabel();
+        lblMateria = new javax.swing.JLabel();
+        ll = new javax.swing.JLabel();
+        lblCurp1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -148,6 +159,11 @@ public class MateriaWindow extends javax.swing.JFrame {
                 "Curp", "Name", " Apellido Paterno", "Apellido Materno", "Fecha de Nacimiento", "Sexo", "Estado", "Materia", "Docente"
             }
         ));
+        tblStudents.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblStudentsMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblStudents);
 
         cmbMateria.addActionListener(new java.awt.event.ActionListener() {
@@ -158,14 +174,31 @@ public class MateriaWindow extends javax.swing.JFrame {
 
         jLabel13.setText("Materia:");
 
+        btnBaja.setText("Baja");
+        btnBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBajaActionPerformed(evt);
+            }
+        });
+
+        txtInfoSearch1.setBackground(new java.awt.Color(0, 191, 255));
+        txtInfoSearch1.setText("i");
+        txtInfoSearch1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtInfoSearch1ActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setText("Info de Baja");
+
+        ll.setText("Materia:");
+
+        lblCurp1.setText("Curp:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSalir)
-                .addGap(73, 73, 73))
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,17 +223,34 @@ public class MateriaWindow extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRefresh))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(bsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtInfoSearch))
-                            .addComponent(cmbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtInfoSearch1))
+                            .addComponent(cmbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtInfoSearch)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel14))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(lblCurp1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(ll, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(lblCurp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblMateria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
+                            .addGap(54, 54, 54)
+                            .addComponent(btnBaja)
+                            .addGap(180, 180, 180)
+                            .addComponent(btnSalir))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -235,14 +285,32 @@ public class MateriaWindow extends javax.swing.JFrame {
                     .addComponent(cmbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bsearch, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtInfoSearch))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bsearch)
+                    .addComponent(txtInfoSearch1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtInfoSearch)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnSalir)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnBaja)
+                            .addComponent(btnSalir))
+                        .addGap(81, 81, 81))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblCurp1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCurp, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ll, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -250,6 +318,8 @@ public class MateriaWindow extends javax.swing.JFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
        materiaBLO.commitChanges();
+       SMBLO.commitChanges();
+       studentBLO.commitChanges();
         this.dispose();
         StartView n =new StartView();
          n.setVisible(true);
@@ -382,7 +452,7 @@ public class MateriaWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void txtInfoSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInfoSearchActionPerformed
-        JOptionPane.showMessageDialog(null, "Para Realizar una Busqueda Seleccione una De las Materias Disponibles");
+        JOptionPane.showMessageDialog(null, "Para Realizar una Baja Seleccione un Estudiante en la Tabla(Click)");
 
     }//GEN-LAST:event_txtInfoSearchActionPerformed
 
@@ -409,7 +479,7 @@ public class MateriaWindow extends javax.swing.JFrame {
             }
             else if(!"".equals(busq))
             {
-                List<Student> studentList1=studentBLO.findStudentsMat(busq);
+                List<SM> studentList1=SMBLO.findStudentsMat(busq);
                 //            Student student =studentBLO.find(id);
                 if(!studentList1.isEmpty())
                 {
@@ -433,6 +503,66 @@ public class MateriaWindow extends javax.swing.JFrame {
     private void cmbMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMateriaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbMateriaActionPerformed
+
+    private void tblStudentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblStudentsMouseClicked
+        // TODO add your handling code here:
+//        int n=tblStudents.;
+        int s=tblStudents.getSelectedRow();
+        
+         DefaultTableModel dtm = (DefaultTableModel) tblStudents.getModel();
+        if(s!=-1)
+        {
+           String Curp= dtm.getValueAt(s, 0).toString();
+           String Materia=dtm.getValueAt(s, 7).toString();
+           lblCurp.setText("");
+           lblCurp.setText(Curp);
+           lblMateria.setText("");
+           lblMateria.setText(Materia);
+        }
+        
+       
+    }//GEN-LAST:event_tblStudentsMouseClicked
+
+    private void txtInfoSearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInfoSearch1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtInfoSearch1ActionPerformed
+
+    private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
+        // TODO add your handling code here:
+            String curp=lblCurp.getText();
+            String name=lblMateria.getText();
+             String id=tfId.getText();
+            String namem=tfNameMateria.getText();
+            String named=tfNameDocente.getText();
+            if(!"".equals(namem) &&!"".equals(named) &&!"".equals(id))
+            {
+                JOptionPane.showMessageDialog(null, "Para Realizar Una Baja Solo Es Necesario el Campo\nid");
+                tfNameMateria.setText("");
+                tfNameDocente.setText("");
+                tfId.setText("");
+            }
+            else if(!"".equals(curp)&& !"".equals(name))
+            {
+                String idm=materiaBLO.findId(name);
+                SM student=new SM(curp,idm);
+                boolean var=SMBLO.Baja(student);
+                if(var==true)
+                {
+                   lblCurp.setText("");
+            lblMateria.setText("");
+                    refreshMaterias();
+                    refreshTable(materiaBLO.findAll());
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "El Usuario No Existe");
+                    refreshTable(materiaBLO.findAll());
+                }
+                //
+                //            tfName.setText(student.getName());
+                //            tfLastName.setText(student.getLastName());
+            }
+    }//GEN-LAST:event_btnBajaActionPerformed
 private void refreshTable(List<Materia> studentList)
     {
         clearTable();
@@ -447,24 +577,28 @@ private void refreshTable(List<Materia> studentList)
             dtm.setValueAt(studentList.get(i).getDocente(), i, 2);
         }
     }
-private void refreshTableSearch(List<Student> studentList)
+private void refreshTableSearch(List<SM> SM)
     {
         clearTableStudents();
-       MateriaBLO N=new MateriaBLO();
-        List<Materia>  n= N.findAll(); // se obtiene lista en el metodo de negocio
+       StudentBLO N=new StudentBLO();
+       MateriaBLO n=new MateriaBLO();
+//        List<Materia>  n= N.findAll(); // se obtiene lista en el metodo de negocio
         DefaultTableModel dtm = (DefaultTableModel) tblStudents.getModel(); //tabala de negocio
         Object[] emptyRow = {""}; //renglon bacio a las propiedades
-        for(int i = 0; i<studentList.size(); i++){ //recorrer la lista de los estudiantes
+        for(int i = 0; i<SM.size(); i++){ //recorrer la lista de los estudiantes
             dtm.addRow(emptyRow);// se agrega renglon vacio y se agrega a la tabla
-            dtm.setValueAt(studentList.get(i).getCurp(), i, 0); // la i es la posicion    el tercero es la coluna
-            dtm.setValueAt(studentList.get(i).getName(), i, 1);
-            dtm.setValueAt(studentList.get(i).getApellidoP(), i, 2);
-            dtm.setValueAt(studentList.get(i).getApellidoM(), i, 3);
-            dtm.setValueAt(studentList.get(i).getFechaNacimiento(), i, 4);
-            dtm.setValueAt(studentList.get(i).getSexo(), i, 5);
-            dtm.setValueAt(studentList.get(i).getEstado(), i, 6);
-            dtm.setValueAt(N.findName(studentList.get(i).getIdMateria()), i, 7);
-            dtm.setValueAt(N.findNameDocente(studentList.get(i).getIdMateria()), i, 8);
+            dtm.setValueAt(SM.get(i).getCurp(), i, 0); // la i es la posicion    el tercero es la coluna
+            dtm.setValueAt(N.find(SM.get(i).getCurp()).getName(), i, 1);
+            dtm.setValueAt(N.find(SM.get(i).getCurp()).getApellidoP(), i, 2);
+            dtm.setValueAt(N.find(SM.get(i).getCurp()).getApellidoM(), i, 3);
+            dtm.setValueAt(N.find(SM.get(i).getCurp()).getFechaNacimiento(), i, 4);
+            dtm.setValueAt(N.find(SM.get(i).getCurp()).getSexo(), i, 5);
+            dtm.setValueAt(N.find(SM.get(i).getCurp()).getEstado(), i, 6);
+            dtm.setValueAt(n.findName(SM.get(i).getIdMateria()), i, 7);
+            dtm.setValueAt(n.findNameDocente(SM.get(i).getIdMateria()), i, 8);
+//
+//            dtm.setValueAt(N.findName(studentList.get(i).getIdMateria()), i, 7);
+//            dtm.setValueAt(N.findNameDocente(studentList.get(i).getIdMateria()), i, 8);
         }
     }
 private void clearTable(){
@@ -526,6 +660,7 @@ private void refreshMaterias()
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bsave;
     private javax.swing.JButton bsearch;
+    private javax.swing.JButton btnBaja;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnSalir;
@@ -534,15 +669,21 @@ private void refreshMaterias()
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblCurp;
+    private javax.swing.JLabel lblCurp1;
+    private javax.swing.JLabel lblMateria;
+    private javax.swing.JLabel ll;
     private javax.swing.JTable tblMat;
     private javax.swing.JTable tblStudents;
     private javax.swing.JTextField tfId;
     private javax.swing.JTextField tfNameDocente;
     private javax.swing.JTextField tfNameMateria;
     private javax.swing.JButton txtInfoSearch;
+    private javax.swing.JButton txtInfoSearch1;
     // End of variables declaration//GEN-END:variables
 }

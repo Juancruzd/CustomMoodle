@@ -73,14 +73,32 @@ public class StudentDAOListImple implements StudentDAO {
     @Override
     public boolean update(Student student) {
        boolean i=false;
-        int pos = studentList.indexOf(student);//obtener la posicion
+       Student o=new Student();
+          o.setCurp(student.getCurp());
+          o.setApellidoM(student.getApellidoM());
+          o.setApellidoP(student.getApellidoP());
+          o.setEstado(student.getEstado());
+          o.setSexo(student.getSexo());
+          o.setFechaNacimiento(student.getFechaNacimiento());
+          o.setName(student.getName());
+          
+        int pos = studentList.indexOf(o);//obtener la posicion
       if(pos==-1)
       {
       i=false;
       }
           else
       {
-          studentList.set(pos, student);//y en esa misma posicion se le va a set (hacer el cambio)
+          Student n=new Student();
+          n.setCurp(student.getCurpcop());
+          n.setApellidoM(student.getApellidoM());
+          n.setApellidoP(student.getApellidoP());
+          n.setEstado(student.getEstado());
+          n.setSexo(student.getSexo());
+          n.setFechaNacimiento(student.getFechaNacimiento());
+          n.setName(student.getName());
+          
+          studentList.set(pos, n);//y en esa misma posicion se le va a set (hacer el cambio)
         i=true;
       }
       return i;
@@ -119,19 +137,6 @@ public class StudentDAOListImple implements StudentDAO {
         ex.printStackTrace();
      }
     }
-    @Override
-    public List<Student> findStudentsMat(String lastName) {
-        List<Student> resMateriaList=new ArrayList<>();
-    lastName = lastName.toLowerCase().trim();
-    MateriaBLO N=new MateriaBLO();
-    String i=N.findId(lastName);
-    for (Student student : studentList){
-        if(student.getIdMateria().toLowerCase().contains(i))
-        {
-            resMateriaList.add(student);
-        }
-    }
-    return resMateriaList;
-    }
+    
     
 }

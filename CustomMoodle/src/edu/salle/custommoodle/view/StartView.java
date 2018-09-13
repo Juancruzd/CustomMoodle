@@ -5,6 +5,10 @@
  */
 package edu.salle.custommoodle.view;
 
+import edu.salle.custommoodle.businesslogic.MateriaBLO;
+import edu.salle.custommoodle.businesslogic.SMBLO;
+import edu.salle.custommoodle.businesslogic.StudentBLO;
+
 /**
  *
  * @author JuandeDios
@@ -14,8 +18,17 @@ public class StartView extends javax.swing.JFrame {
     /**
      * Creates new form StartView
      */
+    private SMBLO SMBLO=new SMBLO();
+    private StudentBLO studentBLO=new StudentBLO();
+    private MateriaBLO materiaBLO=new MateriaBLO();
     public StartView() {
         initComponents();
+        materiaBLO.load();
+        studentBLO.load();
+        SMBLO.load();
+        studentBLO.commitChanges();
+        SMBLO.commitChanges();
+        materiaBLO.commitChanges();
     }
 
     /**
@@ -29,6 +42,7 @@ public class StartView extends javax.swing.JFrame {
 
         btnAlumnos = new javax.swing.JButton();
         btnMaterias = new javax.swing.JButton();
+        btnexit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,16 +60,28 @@ public class StartView extends javax.swing.JFrame {
             }
         });
 
+        btnexit.setText("exit");
+        btnexit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnexitActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(60, Short.MAX_VALUE)
-                .addComponent(btnAlumnos)
-                .addGap(37, 37, 37)
-                .addComponent(btnMaterias)
-                .addGap(112, 112, 112))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnAlumnos)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnMaterias)
+                        .addGap(112, 112, 112))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnexit)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -64,7 +90,9 @@ public class StartView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnMaterias)
                     .addComponent(btnAlumnos))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(btnexit)
+                .addContainerGap())
         );
 
         pack();
@@ -81,6 +109,14 @@ public class StartView extends javax.swing.JFrame {
 n.setVisible(true);
 this.dispose();
     }//GEN-LAST:event_btnAlumnosActionPerformed
+
+    private void btnexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexitActionPerformed
+studentBLO.commitChanges();
+        SMBLO.commitChanges();
+        materiaBLO.commitChanges();
+        this.dispose();// TODO add your handling code here:
+
+    }//GEN-LAST:event_btnexitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,5 +156,6 @@ this.dispose();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlumnos;
     private javax.swing.JButton btnMaterias;
+    private javax.swing.JButton btnexit;
     // End of variables declaration//GEN-END:variables
 }

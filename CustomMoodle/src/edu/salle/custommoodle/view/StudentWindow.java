@@ -7,8 +7,10 @@ package edu.salle.custommoodle.view;
 
 import edu.salle.custommoodle.businesslogic.StudentBLO;
 import edu.salle.custommoodle.businesslogic.MateriaBLO;
+import edu.salle.custommoodle.businesslogic.SMBLO;
 
 import edu.salle.custommoodle.model.Materia;
+import edu.salle.custommoodle.model.SM;
 import edu.salle.custommoodle.model.Student;
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -20,12 +22,16 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author JuandeDios
  */
-public class StudentWindow extends javax.swing.JFrame {
 
+public class StudentWindow extends javax.swing.JFrame {
+public static class lista
+{ 
+    public static List<String> TempMat=new ArrayList<>();
+}
     /**
      * Creates new form StudentWindow
      */
-//     private static List<String> TempMaterias=new ArrayList<>(3);
+    private SMBLO SMBLO=new SMBLO();
     private StudentBLO studentBLO=new StudentBLO();
     private MateriaBLO materiaBLO=new MateriaBLO();
     public StudentWindow() {
@@ -34,9 +40,11 @@ public class StudentWindow extends javax.swing.JFrame {
         
         studentBLO.load();
         materiaBLO.load();
+        SMBLO.load();
         refreshAll();
 //        refreshMaterias();
         clearTable();
+        clearTableS();
         refreshTable(studentBLO.findAll());
     }
 
@@ -82,6 +90,11 @@ public class StudentWindow extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         cmbMateria = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblMaterias = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblS = new javax.swing.JTable();
+        btnD = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,23 +140,18 @@ public class StudentWindow extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Curp", "Name", " Apellido Paterno", "Apellido Materno", "Fecha de Nacimiento", "Sexo", "Estado", "Materia", "Docente"
+                "Curp", "Name", "Apellido Paterno", "Apellido Materno", "Fecha de Nacimiento", "Sexo", "Estado"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblStudents);
-        if (tblStudents.getColumnModel().getColumnCount() > 0) {
-            tblStudents.getColumnModel().getColumn(1).setHeaderValue("Curp");
-            tblStudents.getColumnModel().getColumn(2).setHeaderValue("Materia");
-            tblStudents.getColumnModel().getColumn(3).setResizable(false);
-            tblStudents.getColumnModel().getColumn(3).setHeaderValue("Docente");
-            tblStudents.getColumnModel().getColumn(4).setHeaderValue("Fecha de Nacimiento");
-            tblStudents.getColumnModel().getColumn(5).setResizable(false);
-            tblStudents.getColumnModel().getColumn(5).setHeaderValue("Sexo");
-            tblStudents.getColumnModel().getColumn(6).setHeaderValue("Estado");
-            tblStudents.getColumnModel().getColumn(7).setResizable(false);
-            tblStudents.getColumnModel().getColumn(7).setHeaderValue("Materia");
-            tblStudents.getColumnModel().getColumn(8).setHeaderValue("Docente");
-        }
 
         bexit.setText("Salir");
         bexit.addActionListener(new java.awt.event.ActionListener() {
@@ -212,6 +220,7 @@ public class StudentWindow extends javax.swing.JFrame {
 
         jLabel10.setText("Entidad o Estado:");
 
+        cmbMateria.setToolTipText("");
         cmbMateria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbMateriaActionPerformed(evt);
@@ -220,12 +229,39 @@ public class StudentWindow extends javax.swing.JFrame {
 
         jLabel15.setText("Sexo:");
 
+        tblMaterias.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "id", "Curp", "Materia", "Docente"
+            }
+        ));
+        jScrollPane2.setViewportView(tblMaterias);
+
+        tblS.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Materia Seleccionada"
+            }
+        ));
+        jScrollPane3.setViewportView(tblS);
+
+        btnD.setText("Borrar Materias Seleccionadas ");
+        btnD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -253,13 +289,6 @@ public class StudentWindow extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtAm, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel13)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRefresh))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
@@ -285,10 +314,6 @@ public class StudentWindow extends javax.swing.JFrame {
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtAn, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel5))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,10 +322,32 @@ public class StudentWindow extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtInfoSearch)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bexit)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                        .addComponent(txtInfoSearch))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jLabel13)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnD)
+                                .addGap(27, 27, 27)
+                                .addComponent(btnRefresh))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(87, 87, 87)
+                        .addComponent(bexit))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,19 +394,28 @@ public class StudentWindow extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRefresh))
-                .addGap(6, 6, 6)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(btnRefresh)
+                    .addComponent(btnD))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
+                .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bsearch)
-                    .addComponent(txtInfoSearch)
-                    .addComponent(bexit))
-                .addGap(192, 192, 192))
+                    .addComponent(txtInfoSearch))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(bexit)
+                        .addGap(87, 87, 87))))
         );
 
         pack();
@@ -375,20 +431,28 @@ public class StudentWindow extends javax.swing.JFrame {
         String Sexo=this.cmbSexo.getSelectedItem().toString();
         String año=txtAn.getText();
         String En=this.cmbEntidad.getSelectedItem().toString();
-        String Mat=this.cmbMateria.getSelectedItem().toString();
        if(!"".equals(curp))
         {
         JOptionPane.showMessageDialog(null, "Para Guardar un Estudiante No es Necesario el Campo\nCurp");
         tfId.setText("");  
         }
-       else if(!"".equals(Mat) && !"".equals(En) &&!"".equals(name) && !"".equals(am)&& !"".equals(ap)&& !"".equals(Mes)&& !"".equals(Dia)&& !"".equals(Sexo)&& !"".equals(año))
+       else if(!lista.TempMat.isEmpty() && !"".equals(En) &&!"".equals(name) && !"".equals(am)&& !"".equals(ap)&& !"".equals(Mes)&& !"".equals(Dia)&& !"".equals(Sexo)&& !"".equals(año))
         {
             String FN=Dia+"/"+Mes+"/"+año;
-            String Materia=materiaBLO.findId(Mat);
+           
             String Curp=Curp(name,ap,am,Dia,Mes,año,Sexo,En);
             
-          Student student=new Student(name,ap,am,Sexo,FN,Curp,En,Materia);
+          Student student=new Student(name,ap,am,Sexo,FN,Curp,En);
         studentBLO.save(student);
+        if(lista.TempMat.size()>0)
+        {
+            for(int i=0;i<lista.TempMat.size();i++)
+        {
+        String idMateria=materiaBLO.findId(lista.TempMat.get(i));
+        SM sm=new SM(Curp,idMateria);
+        SMBLO.save(sm);
+        }
+        }
         tfName.setText("");
         tfAp.setText("");
         txtAn.setText("");
@@ -396,6 +460,8 @@ public class StudentWindow extends javax.swing.JFrame {
         txtAm.setText("");
         refreshAll();
  refreshTable(studentBLO.findAll());
+ refreshTableS(lista.TempMat);
+ clearTableS();
         }
        else
        {
@@ -423,27 +489,36 @@ public class StudentWindow extends javax.swing.JFrame {
         String Sexo=this.cmbSexo.getSelectedItem().toString();
         String año=txtAn.getText();
         String En=this.cmbEntidad.getSelectedItem().toString();
-        String Mat=this.cmbMateria.getSelectedItem().toString();
         String busq=txtBusqueda.getText();
         clearTable();
-        if(!"".equals(curp) &&!"".equals(Mat) && !"".equals(En) &&!"".equals(name) && !"".equals(am)&& !"".equals(ap)&& !"".equals(Mes)&& !"".equals(Dia)&& !"".equals(Sexo)&& !"".equals(año))
+//        clearTableM();
+        if(!"".equals(curp) || !lista.TempMat.isEmpty() || !"".equals(En) ||!"".equals(name) || !"".equals(am)|| !"".equals(ap)|| !"".equals(Mes)|| !"".equals(Dia)||!"".equals(Sexo)|| !"".equals(año))
         {
-        JOptionPane.showMessageDialog(null, "Para Realizar Una Busqueda Solo Es Necesario el Campo\nPalabra");
         tfName.setText("");
         tfAp.setText("");
         tfId.setText("");
         txtAn.setText("");
         txtAm.setText("");
+        lista.TempMat.clear();
+        clearTableS();
+//        clearTableM();
         refreshAll();
+        refreshTable(studentBLO.findAll());
+        JOptionPane.showMessageDialog(null, "Para Realizar Una Busqueda Solo Es Necesario el Campo\nPalabra");
+        
+        
         }
         else if(!"".equals(busq))
         {
         List<Student> studentList1=studentBLO.findByLastName(busq);
+        List<SM> sm=SMBLO.findByCurp(busq);
 //            Student student =studentBLO.find(id);
         if(!studentList1.isEmpty())
         {
             clearTable();
+//            clearTableM();
             refreshTable(studentList1);
+            refreshTableM(sm);
         }
         else
         {
@@ -452,7 +527,16 @@ public class StudentWindow extends javax.swing.JFrame {
         }
         }
         else{
-            refreshTable(studentBLO.findAll());
+            tfName.setText("");
+        tfAp.setText("");
+        tfId.setText("");
+        txtAn.setText("");
+        txtAm.setText("");
+        lista.TempMat.clear();
+        clearTableS();
+//        clearTableM();
+        refreshAll();
+        refreshTable(studentBLO.findAll());
         JOptionPane.showMessageDialog(null, "Para Realizar Una Busqueda Es Necesario el Campo\nPalabra");
        
         }
@@ -469,6 +553,7 @@ public class StudentWindow extends javax.swing.JFrame {
         else
         {
         refreshTable(studentBLO.findAll());
+        clearTableM();
         }
     }//GEN-LAST:event_btnRefreshActionPerformed
 
@@ -491,16 +576,25 @@ public class StudentWindow extends javax.swing.JFrame {
         String año=txtAn.getText();
         String En=this.cmbEntidad.getSelectedItem().toString();
         
-        String Mat=this.cmbMateria.getSelectedItem().toString();
-       if(!"".equals(Mat)&&!"".equals(curp) &&!"".equals(En) &&!"".equals(name) && !"".equals(am)&& !"".equals(ap)&& !"".equals(Mes)&& !"".equals(Dia)&& !"".equals(Sexo)&& !"".equals(año))
+//        String Mat=this.cmbMateria.getSelectedItem().toString();
+       if(!"".equals(curp) &&!"".equals(En) &&!"".equals(name) && !"".equals(am)&& !"".equals(ap)&& !"".equals(Mes)&& !"".equals(Dia)&& !"".equals(Sexo)&& !"".equals(año))
         {
           
         String FN=Dia+"/"+Mes+"/"+año;
-            String Curp=Curp(name,ap,am,Dia,Mes,año,Sexo,En);
-            String Materia=materiaBLO.findId(Mat);
-          Student student=new Student(curp,name,ap,am,Sexo,FN,Curp,En,Materia);
-        boolean var=studentBLO.update(student);
-        
+        String Curp=Curp(name,ap,am,Dia,Mes,año,Sexo,En);
+//        String Materia=materiaBLO.findId(Mat);
+          Student s=new Student();
+          s.setCurp(curp);
+          s.setName(name);
+          s.setApellidoP(ap);
+          s.setApellidoM(am);
+          s.setEstado(En);
+          s.setFechaNacimiento(FN);
+          s.setCurpcop(Curp);
+          s.setSexo(Sexo);
+//          (String id,String name, String p,String M,String S,String F,String C,String Estado) 
+        boolean var=studentBLO.update(s);
+        SMBLO.updateCurpMat(curp,Curp);
         if(var==true)
         {
         tfName.setText("");
@@ -567,6 +661,7 @@ public class StudentWindow extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(null, "El Usuario No Existe");
             refreshTable(studentBLO.findAll());
+            clearTableM();
          }
 //        
 //            tfName.setText(student.getName());
@@ -574,6 +669,7 @@ public class StudentWindow extends javax.swing.JFrame {
         }
         else{
             refreshTable(studentBLO.findAll());
+            clearTableM();
         JOptionPane.showMessageDialog(null, "Para Realizar Una Busqueda Es Necesario el Campo\nCurp");
        
         }
@@ -583,6 +679,7 @@ public class StudentWindow extends javax.swing.JFrame {
     private void bexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bexitActionPerformed
     
         studentBLO.commitChanges();
+        SMBLO.commitChanges();
         this.dispose();
         StartView n =new StartView();
 n.setVisible(true);
@@ -610,27 +707,52 @@ n.setVisible(true);
     }//GEN-LAST:event_cmbEntidadActionPerformed
 
     private void cmbMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMateriaActionPerformed
-//       TempMaterias.add(cmbMateria.getSelectedItem().toString());
-//        int p=cmbMateria.getSelectedIndex();
-//        
-//       if(p>0)
-//       {
-//           
-//           cmbMateria.removeItemAt(p);
-//       }
+//       cmbMateria.setSelectedItem("opcion");
+       String tem=(String)cmbMateria.getSelectedItem();
+//       lista n=new lista();
+       if(!"".equals(tem)&& tem!=null)
+       {
+           lista.TempMat.add(tem);
+       refreshTableS(lista.TempMat);
+       }
+       else{}
+       
+        
+        int p=cmbMateria.getSelectedIndex();
+        
+       if(p>0)
+       {
+           
+           cmbMateria.removeItemAt(p);
+       }
        
     }//GEN-LAST:event_cmbMateriaActionPerformed
 
     private void txtBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusquedaActionPerformed
        
     }//GEN-LAST:event_txtBusquedaActionPerformed
+
+    private void btnDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDActionPerformed
+        // TODO add your handling code here:
+//        for(int i=0;i<lista.TempMat.size();i++)
+//        {lista.TempMat.remove(i);}
+//        lista.TempMat.clear();
+        lista.TempMat.removeAll(lista.TempMat);
+       refreshMaterias();
+       refreshTableS(lista.TempMat);
+    }//GEN-LAST:event_btnDActionPerformed
 private void clearTable(){
        DefaultTableModel dtm = (DefaultTableModel) tblStudents.getModel();
        while(dtm.getRowCount()>0){
            dtm.removeRow(0);
        }
    }
-
+private void clearTableS(){
+       DefaultTableModel dtm = (DefaultTableModel) tblS.getModel();
+       while(dtm.getRowCount()>0){
+           dtm.removeRow(0);
+       }
+   }
 private void refreshTable(List<Student> studentList)
     {
         clearTable();
@@ -647,9 +769,50 @@ private void refreshTable(List<Student> studentList)
             dtm.setValueAt(studentList.get(i).getFechaNacimiento(), i, 4);
             dtm.setValueAt(studentList.get(i).getSexo(), i, 5);
             dtm.setValueAt(studentList.get(i).getEstado(), i, 6);
-            dtm.setValueAt(N.findName(studentList.get(i).getIdMateria()), i, 7);
-            dtm.setValueAt(N.findNameDocente(studentList.get(i).getIdMateria()), i, 8);
+//            dtm.setValueAt(N.findName(studentList.get(i).getIdMateria()), i, 7);
+//            dtm.setValueAt(N.findNameDocente(studentList.get(i).getIdMateria()), i, 8);
 //            dtm.setValueAt(n.get(Integer.parseInt(studentList.get(i).getIdMateria())).getName(), i, 7);
+//            dtm.setValueAt(n.get(Integer.parseInt(studentList.get(i).getIdMateria())).getDocente(), i, 8);
+        }
+    }
+private void refreshTableS(List<String> List)
+    {
+        clearTableS();
+        lista N=new lista();
+        DefaultTableModel dtm = (DefaultTableModel) tblS.getModel(); //tabala de negocio
+        Object[] emptyRow = {""}; //renglon bacio a las propiedades
+        for(int i = 0; i<List.size(); i++){ //recorrer la lista de los estudiantes
+            dtm.addRow(emptyRow);// se agrega renglon vacio y se agrega a la tabla
+            dtm.setValueAt(List.get(i), i, 0); // la i es la posicion    el tercero es la coluna
+            
+//            dtm.setValueAt(N.findName(studentList.get(i).getIdMateria()), i, 7);
+//            dtm.setValueAt(N.findNameDocente(studentList.get(i).getIdMateria()), i, 8);
+//            dtm.setValueAt(n.get(Integer.parseInt(studentList.get(i).getIdMateria())).getName(), i, 7);
+//            dtm.setValueAt(n.get(Integer.parseInt(studentList.get(i).getIdMateria())).getDocente(), i, 8);
+        }
+    }
+private void clearTableM(){
+       DefaultTableModel dtm = (DefaultTableModel) tblMaterias.getModel();
+       while(dtm.getRowCount()>0){
+           dtm.removeRow(0);
+       }
+   }
+private void refreshTableM(List<SM> List)
+    {
+        clearTableM();
+        MateriaBLO n=new MateriaBLO();
+        DefaultTableModel dtm = (DefaultTableModel) tblMaterias.getModel(); //tabala de negocio
+        Object[] emptyRow = {""}; //renglon bacio a las propiedades
+        for(int i = 0; i<List.size(); i++){ //recorrer la lista de los estudiantes
+            dtm.addRow(emptyRow);// se agrega renglon vacio y se agrega a la tabla
+            dtm.setValueAt(List.get(i).getId(), i, 0); // la i es la posicion    el tercero es la coluna
+            dtm.setValueAt(List.get(i).getCurp(), i, 1);
+            dtm.setValueAt(n.findName(List.get(i).getIdMateria()), i, 2);
+            dtm.setValueAt(n.findNameDocente(List.get(i).getIdMateria()), i, 3);
+//            dtm.setValueAt(List.get(i).getId(), i, 0);
+//            dtm.setValueAt(N.findName(studentList.get(i).getIdMateria()), i, 7);
+//            dtm.setValueAt(N.findNameDocente(studentList.get(i).getIdMateria()), i, 8);
+////            dtm.setValueAt(n.get(Integer.parseInt(studentList.get(i).getIdMateria())).getName(), i, 7);
 //            dtm.setValueAt(n.get(Integer.parseInt(studentList.get(i).getIdMateria())).getDocente(), i, 8);
         }
     }
@@ -715,13 +878,11 @@ private void refreshTable(List<Student> studentList)
          cmbMateria.removeAllItems();
          
         List<Materia>  n= materiaBLO.findAll();
-         cmbMateria.addItem("");
-        for(int i = 0; i < n.size(); i++) {
+          cmbMateria.addItem("");
+                 for(int i = 0; i < n.size(); i++) {
               cmbMateria.addItem((n.get(i).getName()));
      }
       }
-     
-
      public static String Entidad(String E)
 {
     String Entidad="";
@@ -930,6 +1091,7 @@ return cadenaSinAcentos;
     private javax.swing.JButton bexit;
     private javax.swing.JButton bsave;
     private javax.swing.JButton bsearch;
+    private javax.swing.JButton btnD;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnupdate;
@@ -952,6 +1114,10 @@ return cadenaSinAcentos;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable tblMaterias;
+    private javax.swing.JTable tblS;
     private javax.swing.JTable tblStudents;
     private javax.swing.JTextField tfAp;
     private javax.swing.JTextField tfId;

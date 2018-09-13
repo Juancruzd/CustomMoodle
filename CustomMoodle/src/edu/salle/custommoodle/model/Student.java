@@ -19,20 +19,29 @@ public class Student {
      private String sexo; 
      private String estado;
      private String curp; 
-     private String idMateria;
+     private String curpcop; 
+//     private String idMateria;
 
-    public String getIdMateria() {
-        return idMateria;
+    public String getCurpcop() {
+        return curpcop;
     }
 
-    public void setIdMateria(String idMateria) {
-        this.idMateria = idMateria;
+    public void setCurpcop(String curpcop) {
+        this.curpcop = curpcop;
     }
-     
+
+//    public String getIdMateria() {
+//        return idMateria;
+//    }
+//
+//    public void setIdMateria(String idMateria) {
+//        this.idMateria = idMateria;
+//    }
+//     
      
      public Student()
      {}
-    public Student(String name, String p,String M,String S,String F,String C,String Estado,String Materia) {
+    public Student(String name, String p,String M,String S,String F,String C,String Estado) {
         this.name = name;
         this.apellidoP = p;
         this.apellidoM = M;
@@ -40,17 +49,18 @@ public class Student {
         this.curp = C ;
         this.fechaNacimiento=F;
         this.estado=Estado;
-        this.idMateria=Materia;
+        
+//        this.idMateria=Materia;
         
     }
-     public Student(String id,String name, String p,String M,String S,String F,String C,String Estado,String Materia) {
-        this.idMateria=Materia;
+     public Student(String id,String name, String p,String M,String S,String F,String C,String Estado) {
+//        this.idMateria=Materia;
         this.curp=id;
         this.name = name;
         this.apellidoP = p;
         this.apellidoM = M;
         this.sexo = S;
-        this.curp = C ;
+        this.curpcop = C ;
         this.fechaNacimiento=F;
         this.estado=Estado;
     }

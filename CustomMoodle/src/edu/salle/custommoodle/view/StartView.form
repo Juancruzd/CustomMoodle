@@ -24,7 +24,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace pref="60" max="32767" attributes="0"/>
+              <EmptySpace pref="28" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="btnAlumnos" min="-2" max="-2" attributes="0"/>
@@ -58,6 +58,9 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="btnAlumnos">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/edu/salle/custommoodle/images/126.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Alumnos"/>
       </Properties>
       <Events>
@@ -66,6 +69,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnMaterias">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/edu/salle/custommoodle/images/113.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Materias"/>
       </Properties>
       <Events>
@@ -74,6 +80,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnexit">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/edu/salle/custommoodle/images/28.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="exit"/>
       </Properties>
       <Events>

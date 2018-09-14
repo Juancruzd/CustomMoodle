@@ -46,6 +46,7 @@ public class StartView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        btnAlumnos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/salle/custommoodle/images/126.png"))); // NOI18N
         btnAlumnos.setText("Alumnos");
         btnAlumnos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -53,6 +54,7 @@ public class StartView extends javax.swing.JFrame {
             }
         });
 
+        btnMaterias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/salle/custommoodle/images/113.png"))); // NOI18N
         btnMaterias.setText("Materias");
         btnMaterias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,6 +62,7 @@ public class StartView extends javax.swing.JFrame {
             }
         });
 
+        btnexit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/salle/custommoodle/images/28.png"))); // NOI18N
         btnexit.setText("exit");
         btnexit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,7 +75,7 @@ public class StartView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
+                .addContainerGap(28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnAlumnos)

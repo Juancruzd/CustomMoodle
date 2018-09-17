@@ -12,7 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Universidad De La Salle Bajío
+ * Ingenieria en Sistemas y Software Computacionales
+ * Juan de Dios Guadalupe Cruz Delgado.
+ * 67024
+ * SMBLO
  * @author JuandeDios
  */
 public class SMBLO {
@@ -67,5 +71,9 @@ public class SMBLO {
    public boolean Baja(SM student)
    {
        return  SMDAO.Baja(student);
+   };
+   public boolean updateMat(List<String> Mat,String curpO)
+   {
+       return SMDAO.updateMat( Mat,curpO);
    };
 }

@@ -10,7 +10,11 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
+ * Universidad De La Salle Bajío
+ * Ingenieria en Sistemas y Software Computacionales
+ * Juan de Dios Guadalupe Cruz Delgado.
+ * 67024
+ * Model Intercecciones Materia-Students
  * @author JuandeDios
  */
 public class SM {
@@ -31,7 +35,7 @@ public SM()
         this.idmateria=idm;
     }
      public SM(String id) {
-        this.id=id;
+        this.curp=id;
     }
     public String getId() {
         return id;

@@ -11,7 +11,11 @@ import edu.salle.custommoodle.model.Student;
 import java.util.List;
 
 /**
- *
+ * Universidad De La Salle Bajío
+ * Ingenieria en Sistemas y Software Computacionales
+ * Juan de Dios Guadalupe Cruz Delgado.
+ * 67024
+ * StudentBLO
  * @author JuandeDios
  */
 public class StudentBLO {

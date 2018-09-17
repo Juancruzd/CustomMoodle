@@ -19,7 +19,11 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
+ * Universidad De La Salle Bajío
+ * Ingenieria en Sistemas y Software Computacionales
+ * Juan de Dios Guadalupe Cruz Delgado.
+ * 67024
+ * View Students
  * @author JuandeDios
  */
 
@@ -37,12 +41,10 @@ public static class lista
     public StudentWindow() {
         initComponents();
         setLocationRelativeTo(null);
-        
         studentBLO.load();
         materiaBLO.load();
         SMBLO.load();
         refreshAll();
-//        refreshMaterias();
         clearTable();
         clearTableS();
         refreshTable(studentBLO.findAll());
@@ -98,6 +100,8 @@ public static class lista
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Alumnos");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         bsave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/salle/custommoodle/images/70.png"))); // NOI18N
         bsave.setText("Save");
@@ -181,6 +185,8 @@ public static class lista
 
         jLabel5.setText("Busqueda");
 
+        txtInfoSearch.setBackground(new java.awt.Color(0, 191, 255));
+        txtInfoSearch.setForeground(new java.awt.Color(255, 255, 255));
         txtInfoSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/salle/custommoodle/images/5.png"))); // NOI18N
         txtInfoSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -246,8 +252,23 @@ public static class lista
             new String [] {
                 "id", "Curp", "Materia", "Docente"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tblMaterias);
+        if (tblMaterias.getColumnModel().getColumnCount() > 0) {
+            tblMaterias.getColumnModel().getColumn(0).setResizable(false);
+            tblMaterias.getColumnModel().getColumn(0).setHeaderValue("id");
+            tblMaterias.getColumnModel().getColumn(1).setHeaderValue("Curp");
+            tblMaterias.getColumnModel().getColumn(2).setHeaderValue("Materia");
+            tblMaterias.getColumnModel().getColumn(3).setHeaderValue("Docente");
+        }
 
         tblS.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -276,23 +297,6 @@ public static class lista
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel13)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnD)
-                        .addGap(27, 27, 27)
-                        .addComponent(btnRefresh))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bexit)
-                .addGap(64, 64, 64))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -315,9 +319,9 @@ public static class lista
                             .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,7 +335,7 @@ public static class lista
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel15)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cmbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(cmbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -358,8 +362,26 @@ public static class lista
                                 .addComponent(bsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtInfoSearch))
-                            .addComponent(jLabel5))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                            .addComponent(jLabel5)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jLabel13)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnD)
+                                .addGap(27, 27, 27)
+                                .addComponent(btnRefresh)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane2)
+                                .addGap(30, 30, 30)))
+                        .addComponent(bexit)
+                        .addGap(29, 29, 29)))
+                .addGap(35, 35, 35))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -452,7 +474,11 @@ public static class lista
         String En=this.cmbEntidad.getSelectedItem().toString();
        if(!"".equals(curp))
         {
-        JOptionPane.showMessageDialog(null, "Para Guardar un Estudiante No es Necesario el Campo\nCurp");
+//        JOptionPane.showMessageDialog(null, "Para Guardar un Estudiante No es Necesario el Campo\nCurp");
+//        JOptionPane.showMessageDialog(null,"Por favor llene todos los campos","Campo(s) vacios",JOptionPane.ERROR_MESSAGE);
+JOptionPane.showMessageDialog(null,"Para Guardar un Estudiante No es Necesario el Campo\nCurp","Campo Curp",JOptionPane.ERROR_MESSAGE);
+
+
         tfId.setText("");  
         }
        else if(!lista.TempMat.isEmpty() && !"".equals(En) &&!"".equals(name) && !"".equals(am)&& !"".equals(ap)&& !"".equals(Mes)&& !"".equals(Dia)&& !"".equals(Sexo)&& !"".equals(año))
@@ -478,9 +504,11 @@ public static class lista
         tfId.setText("");
         txtAm.setText("");
         refreshAll();
- refreshTable(studentBLO.findAll());
- refreshTableS(lista.TempMat);
- clearTableS();
+        lista.TempMat.removeAll(lista.TempMat);
+        refreshTableS(lista.TempMat);
+        refreshTable(studentBLO.findAll());
+        refreshTableS(lista.TempMat);
+        clearTableS();
         }
        else
        {
@@ -600,6 +628,12 @@ public static class lista
 //          (String id,String name, String p,String M,String S,String F,String C,String Estado) 
         boolean var=studentBLO.update(s);
         SMBLO.updateCurpMat(curp,Curp);
+        if(!lista.TempMat.isEmpty())
+        {
+            SMBLO.updateMat(lista.TempMat,Curp);
+            lista.TempMat.removeAll(lista.TempMat);
+        }
+        clearTableM();
         if(var==true)
         {
         tfName.setText("");
@@ -659,17 +693,22 @@ public static class lista
         else if(!"".equals(curp))
         {
         Student student=new Student(curp);
+        SM sm=new SM();
+        sm.setCurp(curp);
+        SMBLO.delete(sm);
         boolean var=studentBLO.delete(student);
         if(var==true)
         { 
         tfId.setText(""); 
         refreshTable(studentBLO.findAll());
+        clearTableM();
         }
             else
         {
             JOptionPane.showMessageDialog(null, "El Usuario No Existe");
             refreshTable(studentBLO.findAll());
             clearTableM();
+            
          }
 //        
 //            tfName.setText(student.getName());

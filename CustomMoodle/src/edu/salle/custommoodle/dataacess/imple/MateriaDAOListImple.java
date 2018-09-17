@@ -7,10 +7,8 @@ package edu.salle.custommoodle.dataacess.imple;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import edu.salle.custommoodle.businesslogic.MateriaBLO;
 import edu.salle.custommoodle.dataacess.MateriaDAO;
 import edu.salle.custommoodle.model.Materia;
-import edu.salle.custommoodle.model.Student;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -18,10 +16,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Universidad De La Salle Bajío
+ * Ingenieria en Sistemas y Software Computacionales
+ * Juan de Dios Guadalupe Cruz Delgado.
+ * 67024
+ * MateriaDAOListImple
  * @author JuandeDios
  */
 public class MateriaDAOListImple implements MateriaDAO {
+    /**
+     * Lista Statica de Tipo Materia
+     */
     private static List<Materia> MateriaList=new ArrayList<>();
     @Override
     public Materia save(Materia mat) {
@@ -30,12 +35,10 @@ public class MateriaDAOListImple implements MateriaDAO {
         MateriaList.add(mat);
         return mat;
     }
-
     @Override
     public List<Materia> findAll() {
     return MateriaList;
     }
-
     @Override
     public Materia find(String id) {
         for(Materia student:MateriaList)
@@ -47,7 +50,6 @@ public class MateriaDAOListImple implements MateriaDAO {
         }
         return null;
     }
-
     @Override
     public List<Materia> findByName(String lastName) {
         List<Materia> resMateriaList=new ArrayList<>();
@@ -60,13 +62,11 @@ public class MateriaDAOListImple implements MateriaDAO {
     }
     return resMateriaList;
     }
-
     @Override
     public boolean delete(Materia student) {//recibimos un student y directamente sobre la lista eliminamos
      boolean var=MateriaList.remove(student);
      return var;
     }
-
     @Override
     public boolean update(Materia student) {
        boolean i=false;
@@ -82,7 +82,6 @@ public class MateriaDAOListImple implements MateriaDAO {
       }
       return i;
         }
-
     @Override
     public void load() {
   
@@ -103,7 +102,6 @@ public class MateriaDAOListImple implements MateriaDAO {
      }
         
     }
-
     @Override
     public void commitChanges() {
         try {
@@ -116,7 +114,6 @@ public class MateriaDAOListImple implements MateriaDAO {
         ex.printStackTrace();
      }
     }
-
     @Override
     public String findName(String id) {
         String resMateriaList="";
@@ -151,5 +148,4 @@ public class MateriaDAOListImple implements MateriaDAO {
         }
     }
     return resMateriaList;}
-    
 }

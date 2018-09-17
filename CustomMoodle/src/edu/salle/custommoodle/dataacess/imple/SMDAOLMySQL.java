@@ -10,7 +10,11 @@ import edu.salle.custommoodle.model.SM;
 import java.util.List;
 
 /**
- *
+ * Universidad De La Salle Bajío
+ * Ingenieria en Sistemas y Software Computacionales
+ * Juan de Dios Guadalupe Cruz Delgado.
+ * 67024
+ * SMDAOMYSQL
  * @author JuandeDios
  */
 public class SMDAOLMySQL implements SMDAO{
@@ -80,6 +84,11 @@ public class SMDAOLMySQL implements SMDAO{
 
     @Override
     public boolean Baja(SM student) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean updateMat(List<String> Mat, String curpO) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

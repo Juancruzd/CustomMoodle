@@ -8,8 +8,8 @@ package edu.salle.custommoodle.dataacess.imple;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import edu.salle.custommoodle.businesslogic.MateriaBLO;
+import edu.salle.custommoodle.businesslogic.SMBLO;
 import edu.salle.custommoodle.dataacess.SMDAO;
-import edu.salle.custommoodle.model.Materia;
 import edu.salle.custommoodle.model.SM;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -24,20 +24,18 @@ import java.util.List;
 public class SMDAOListImple implements SMDAO{
    
     private static List<SM> SMList=new ArrayList<>();
-    @Override
+@Override
     public SM save(SM mat) {
         String id=Integer.toString(SMList.size()+1);
         mat.setId(id);
         SMList.add(mat);
         return mat;
     }
-
-    @Override
+@Override
     public List<SM> findAll() {
     return SMList;
     }
-
-    @Override
+@Override
     public SM find(String id) {
         for(SM student:SMList)
         {
@@ -48,8 +46,7 @@ public class SMDAOListImple implements SMDAO{
         }
         return null;
     }
-
-    @Override
+@Override
     public List<SM> findByCurp(String curp) {
         List<SM> resMateriaList=new ArrayList<>();
     curp = curp.toLowerCase().trim();
@@ -61,12 +58,38 @@ public class SMDAOListImple implements SMDAO{
     }
     return resMateriaList;
     }
-
-    @Override
+@Override
     public boolean delete(SM student) {//recibimos un student y directamente sobre la lista eliminamos
-        
-     boolean var=SMList.remove(student);
-     return var;
+         List<SM> resMateriaList=new ArrayList<>();
+         String curpO=student.getCurp();
+    curpO = curpO.toLowerCase().trim();
+    for (SM student1 : SMList){
+        if(student1.getCurp().toLowerCase().contains(curpO) )
+        {
+            resMateriaList.add(student1);
+        }
+    }
+    boolean b=false;
+    for(int j=0;j<resMateriaList.size();j++)
+       {
+       int pos = SMList.indexOf(resMateriaList.get(j));//obtener la posicion
+       if(pos==-1)
+      {
+         b=false;
+      }
+       else
+       {
+           SM n=new SM();
+       n.setCurp(curpO);
+       n.setId(SMList.get(pos).getId());
+       n.setIdMateria(SMList.get(pos).getIdMateria());
+       b=SMList.remove(n);
+       }
+       
+//       SMList.remove(student);
+       }
+     
+     return b;
     }
 @Override
     public boolean Baja(SM student) {//recibimos un student y directamente sobre la lista eliminamos
@@ -140,8 +163,56 @@ public class SMDAOListImple implements SMDAO{
         }
         return i;
     }
-
-    @Override
+@Override
+    public boolean updateMat(List<String> Mat,String curpO) {
+        List<SM> resMateriaList=new ArrayList<>();
+  String  curpO1 = curpO.toLowerCase().trim();
+    for (SM student : SMList){
+        if(student.getCurp().toLowerCase().contains(curpO1) )
+        {
+            resMateriaList.add(student);
+        }
+    }
+       boolean i=false;
+       for(int j=0;j<Mat.size();j++)
+       {
+           String Materia="";
+           i=false;
+           MateriaBLO m=new MateriaBLO();
+           Materia=m.findId(Mat.get(j));
+           for(int k=0;k<resMateriaList.size();k++)
+           {
+               String n=resMateriaList.get(k).getIdMateria();
+               int l=Materia.compareTo(n);
+               if(l==0)
+                {
+                  i=true;
+                }
+               else
+                {
+                    if(i==true)
+                    {
+                        i=true;
+                    }
+                    else
+                    {
+                        i=false;
+                    }
+               
+                }
+           }
+           if(i==false)
+           {
+               SM modelSM =new SM();
+               SMBLO smblo=new SMBLO();
+               modelSM.setCurp(curpO);
+               modelSM.setIdMateria(m.findId(Mat.get(j)));
+               smblo.save(modelSM);
+           }
+           }
+        return i;
+    }
+@Override
     public void load() {
   
      try {
@@ -161,8 +232,7 @@ public class SMDAOListImple implements SMDAO{
      }
         
     }
-
-    @Override
+@Override
     public void commitChanges() {
         try {
           Gson gson=new Gson();
@@ -174,8 +244,7 @@ public class SMDAOListImple implements SMDAO{
         ex.printStackTrace();
      }
     }
-
-    @Override
+@Override
     public String findName(String id) {
         String resMateriaList="";
     id = id.toLowerCase().trim();
@@ -186,7 +255,7 @@ public class SMDAOListImple implements SMDAO{
         }
     }
     return resMateriaList;}
-    @Override
+@Override
     public List<SM> findStudentsMat(String id) {
         List<SM> resMateriaList=new ArrayList<>();
     id = id.toLowerCase().trim();
@@ -200,8 +269,7 @@ public class SMDAOListImple implements SMDAO{
     }
     return resMateriaList;
     }
-
-    @Override
+@Override
     public String findId(String name) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

@@ -9,7 +9,11 @@ import edu.salle.custommoodle.model.Materia;
 import java.util.List;
 
 /**
- *
+ * Universidad De La Salle Bajío
+ * Ingenieria en Sistemas y Software Computacionales
+ * Juan de Dios Guadalupe Cruz Delgado.
+ * 67024
+ * MateriaDAO
  * @author JuandeDios
  */
 public interface MateriaDAO {

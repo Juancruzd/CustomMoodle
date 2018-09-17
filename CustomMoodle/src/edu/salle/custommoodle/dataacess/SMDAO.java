@@ -9,7 +9,11 @@ import edu.salle.custommoodle.model.SM;
 import java.util.List;
 
 /**
- *
+ * Universidad De La Salle Bajío
+ * Ingenieria en Sistemas y Software Computacionales
+ * Juan de Dios Guadalupe Cruz Delgado.
+ * 67024
+ * SMDAO
  * @author JuandeDios
  */
 public interface SMDAO {
@@ -27,4 +31,5 @@ public interface SMDAO {
     public List<SM> findStudentsMat(String name);
     public boolean updateCurpMat(String curpO,String curp);
     public boolean Baja(SM student);
+    public boolean updateMat(List<String> Mat,String curpO);
 }

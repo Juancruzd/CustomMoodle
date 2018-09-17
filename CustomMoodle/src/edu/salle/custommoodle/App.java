@@ -11,10 +11,15 @@ import edu.salle.custommoodle.model.Materia;
 import edu.salle.custommoodle.model.Student;
 import edu.salle.custommoodle.view.StartView;
 import edu.salle.custommoodle.view.StudentWindow;
+//import edu.salle.custommoodle.view.prueba;
 import java.util.List;
 
 /**
- *
+ * Universidad De La Salle Bajío
+ * Ingenieria en Sistemas y Software Computacionales
+ * Juan de Dios Guadalupe Cruz Delgado.
+ * 67024
+ * MAIN
  * @author JuandeDios
  */
 public class App {
@@ -33,6 +38,8 @@ public class App {
 //n.setVisible(true);
 StartView n =new StartView();
 n.setVisible(true);
+//prueba view=new prueba();
+//view.setVisible(true);
 //           MateriaBLO N=new MateriaBLO();
 //           N.load();
 //        List<Materia>  n= N.findAll();

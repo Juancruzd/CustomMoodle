@@ -7,21 +7,20 @@ package edu.salle.custommoodle.dataacess.imple;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import edu.salle.custommoodle.businesslogic.MateriaBLO;
 import edu.salle.custommoodle.dataacess.StudentDAO;
-import edu.salle.custommoodle.model.Materia;
 import edu.salle.custommoodle.model.Student;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- *
+ * Universidad De La Salle Bajío
+ * Ingenieria en Sistemas y Software Computacionales
+ * Juan de Dios Guadalupe Cruz Delgado.
+ * 67024
+ * StudentDAOListImple
  * @author JuandeDios
  */
 public class StudentDAOListImple implements StudentDAO {
